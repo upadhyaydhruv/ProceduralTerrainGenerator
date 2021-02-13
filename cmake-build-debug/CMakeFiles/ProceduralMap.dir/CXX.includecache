@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.cpp
+numeric
+-
+random
+-
+algorithm
+-
+iostream
+-
+PerlinNoise.h
+/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.h
+
+/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.h
+vector
+-
+
+/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/main.cpp
+GL/glut.h
+-
+iostream
+-
+vector
+-
+numeric
+-
+random
+-
+algorithm
+-
+
