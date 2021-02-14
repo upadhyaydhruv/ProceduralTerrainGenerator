@@ -17,3 +17,7 @@ PerlinNoise::PerlinNoise(unsigned int seed) {
     std::cout << std::endl;
     data.insert(data.end(), data.begin(), data.end());
 }
+
+double PerlinNoise::fade(double t) {
+    return 6*pow(t, 5) - 15*pow(t, 4) + 10*pow(t, 3); // 6t^5-15t^4+10t^3 is the perlin fade function to
+}

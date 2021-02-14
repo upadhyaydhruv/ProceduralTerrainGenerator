@@ -1,4 +1,1 @@
-/snap/clion/139/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/goodmanmcgee/Projects/OpenGL/ProceduralMap
--- Configuring done
--- Generating done
--- Build files have been written to: /home/goodmanmcgee/Projects/OpenGL/ProceduralMap/cmake-build-debug
+CMakeLists.txt not found in /home/goodmanmcgee/Projects/OpenGL/ProceduralMap Select CMakeLists.txt
