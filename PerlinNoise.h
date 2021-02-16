@@ -12,6 +12,7 @@ class PerlinNoise {
 public:
     PerlinNoise(unsigned int seed);
     double noise(double x, double y, double z);
+    double gradient(int hash, double x, double y, double z); // Gradient function to return a dot product of the two vectors
 
     // Th
     std::vector<int> hashVector;

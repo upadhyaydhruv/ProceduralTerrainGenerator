@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <iostream>
 #include "PerlinNoise.h"
-#define lerp(
 
 PerlinNoise::PerlinNoise(unsigned int seed) {
 
@@ -50,5 +49,20 @@ double noise(double x, double y, double z) {
     double fadedX = fade(xFinal);
     double fadedY = fade(yFinal);
     double fadedZ = fade(zFinal);
+
+    // The code below uses the hashvector and does operations upon that
+    // By having nested indexing, it ensures that the printed values are truly (pseudo)random, with incrementing the overflows doing the same
+
+    int vec1, vec2, vec3, vec4, vec5, vec6, vec7, vec8;
+
+    vec1 = hashVector.at(hashVector.at(hashVector.at(xOverflow) + yOverflow) + zOverflow);
+    vec2 = hashVector.at(hashVector.at(hashVector.at(xOverflow) + yOverflow + 1) + zOverflow);
+    vec3 = hashVector.at(hashVector.at(hashVector.at(xOverflow) + yOverflow) + zOverflow + 1);
+    vec4 = hashVector.at(hashVector.at(hashVector.at(xOverflow) + yOverflow + 1) + zOverflow + 1);
+    vec5 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow) + zOverflow);
+    vec6 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow + 1) + zOverflow);
+    vec7 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow) + zOverflow + 1);
+    vec8 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow + 1) + zOverflow + 1);
+
 
 }
