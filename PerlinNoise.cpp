@@ -66,6 +66,8 @@ double noise(double x, double y, double z) {
 
     double x1, x2, y1, y2;
 
+    // The code below finds a "weighed average" of all the linear extrapolation functions to create a coherent noise algorithm
+
     x1 = lerp(grad(vec1, xFinal, yFinal, zFinal), grad(vec5, xFinal - 1, yFinal - 1, zFinal), fadedX);
     x2 = lerp(grad(vec2, xFinal, yFinal - 1, zFinal), grad(vec6, xFinal - 1, yFinal - 1, zFinal), fadedX);
     y1 = lerp (x1, x2, fadedY);
