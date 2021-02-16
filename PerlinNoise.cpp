@@ -68,9 +68,14 @@ double noise(double x, double y, double z) {
 }
 
 double grad(int hash, double x, double y, double z) {
-    // This function uses bit manipulation to compute the dot product
+    // This function uses bit manipulation to pick a random vector from the following using the last four bits of the hash function
+    /*
+     (1,1,0),(-1,1,0),(1,-1,0),(-1,-1,0),
+     (1,0,1),(-1,0,1),(1,0,-1),(-1,0,-1),
+     (0,1,1),(0,-1,1),(0,1,-1),(0,-1,-1)
+     */
 
-    int h = hash & 15; // Takes first 4 bits of the hashed value
+    int h = hash & 15; // Takes last 4 bits of the hashed value
     double u = h < 8 ? x : y; // If the first digit (MSB) is 0, let u equal x, otherwise let u equal y
     if (h < 4)
         v = y;
