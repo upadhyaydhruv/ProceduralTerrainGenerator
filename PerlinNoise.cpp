@@ -64,13 +64,25 @@ double noise(double x, double y, double z) {
     vec7 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow) + zOverflow + 1);
     vec8 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow + 1) + zOverflow + 1);
 
+    double x1, x2, y1, y2;
+
+    x1 = lerp(grad(vec1, xFinal, yFinal, zFinal), grad(vec5, xFinal - 1, yFinal - 1, zFinal), fadedX);
+    x2 = lerp(grad(vec2, xFinal, yFinal - 1, zFinal), grad(vec6, xFinal - 1, yFinal - 1, zFinal), fadedX);
+    y1 = lerp (x1, x2, fadedY);
+    x1 = lerp (grad(vec3, xFinal, yFinal, zFinal - 1), grad(vec7, xFinal - 1, yFinal - 1, zFinal - 1), fadedX);
+    x2 = lerp (grad(vec4, xFinal, yFinal, zFinal - 1), grad(vec8, xFinal - 1, yFinal - 1, zFinal - 1), fadedX);
+
+    y2 = lerp (x1, x2, fadedY);
+
+    return (lerp (y1, y2, fadedZ) + 1)/2;
+
 
 }
 
 double grad(int hash, double x, double y, double z) {
     // This function uses bit manipulation to pick a random vector from the following using the last four bits of the hash function
     /*
-     (1,1,0),(-1,1,0),(1,-1,0),(-1,-1,0),
+     (1,1,0),(-1,1,0),(1,-1,0),(-1,-1,0)
      (1,0,1),(-1,0,1),(1,0,-1),(-1,0,-1),
      (0,1,1),(0,-1,1),(0,1,-1),(0,-1,-1)
      */
