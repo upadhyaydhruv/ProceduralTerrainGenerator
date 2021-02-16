@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include "PerlinNoise.h"
+#define lerp(
 
 PerlinNoise::PerlinNoise(unsigned int seed) {
     data.resize(256);
