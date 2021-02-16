@@ -8,12 +8,13 @@
 #define PROCEDURALMAP_PERLINNOISE_H
 
 class PerlinNoise {
-    std::vector<int> data;
 
 public:
     PerlinNoise(unsigned int seed);
     double noise(double x, double y, double z);
 
+    // Th
+    std::vector<int> hashVector;
 private:
     double fade(double t);
     double linExtrapolate(double t, double a, double b);

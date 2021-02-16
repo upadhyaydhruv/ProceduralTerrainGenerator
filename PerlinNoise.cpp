@@ -10,13 +10,22 @@
 #define lerp(
 
 PerlinNoise::PerlinNoise(unsigned int seed) {
-    data.resize(256);
-    std::iota(data.begin(), data.end(), 1);
+
+    // The operations on data below create a vector of size 256 with the numbers from 0 to 255 in random order
+    // This is duplicated twice to create a vector of size 512 in order to create a hash function for the generation
+    // Of the gradient vectors
+    hashVector.resize(256);
+
+    // iota populates the array from 0 to 255 in order
+    std::iota(hashVector.begin(), hashVector.end(), 1);
 
     std::default_random_engine engine(seed);
-    std::shuffle (data.begin(), data.end(), engine);
-    std::cout << std::endl;
-    data.insert(data.end(), data.begin(), data.end());
+
+    // Shuffles the values in the array using the seed
+    std::shuffle (hashVector.begin(), hashVector.end(), engine);
+
+    // Duplicates the generated array using an iterator from start to end, creating an array of size 512
+    data.insert(hashVector.end(), hashVector.begin(), hashVector.end());
 }
 
 double PerlinNoise::fade(double t) {
@@ -24,7 +33,7 @@ double PerlinNoise::fade(double t) {
 }
 
 double noise(double x, double y, double z) {
-    // This function find the relevant position of the coordinate in a "unit cube"
+    // This function find the local relevant position of the coordinate in a "unit cube"
 
     // By modulating by 255, it makes sure that the coordinates are within the preset range of 0 to 255 and prevents overflow errors
     int xOverflow = (int)x % 255;
@@ -41,6 +50,5 @@ double noise(double x, double y, double z) {
     double fadedX = fade(xFinal);
     double fadedY = fade(yFinal);
     double fadedZ = fade(zFinal);
-
 
 }
