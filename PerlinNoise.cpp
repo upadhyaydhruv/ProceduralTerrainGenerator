@@ -86,3 +86,7 @@ double grad(int hash, double x, double y, double z) {
 
     return (h&1 == 0 ? u : -u + h&2 == 0 ? v : -v); // Uses the last two digits to determine if u and v are positive or negative, and returns the sum of those
 }
+
+double linExtrapolate(double a, double b, double x) {
+    return a + x * (b - a); // creates a function to extrapolate between two points
+}
