@@ -66,3 +66,18 @@ double noise(double x, double y, double z) {
 
 
 }
+
+double grad(int hash, double x, double y, double z) {
+    // This function uses bit manipulation to compute the dot product
+
+    int h = hash & 15; // Takes first 4 bits of the hashed value
+    double u = h < 8 ? x : y; // If the first digit (MSB) is 0, let u equal x, otherwise let u equal y
+    if (h < 4)
+        v = y;
+    else if (h == 12 || h == 14)
+        v = x;
+    else
+        v = z;
+
+    return (h&1 == 0 ? u : -u + h&2 == 0 ? v : -v); // Uses the last two digits to determine if u and v are positive or negative, and returns the sum of those
+}
