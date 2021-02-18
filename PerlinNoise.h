@@ -17,6 +17,8 @@ public:
     // The vector that holds the hashed values
     std::vector<int> hashVector;
     std::vector<int> zValuesInsertion;
+    int heightMap[1024][1024];
+
 private:
     double fade(double t);
     double linExtrapolate(double t, double a, double b);

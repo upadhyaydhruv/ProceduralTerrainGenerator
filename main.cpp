@@ -12,10 +12,9 @@ constexpr int MAP_SCALE = 50; // arbitrarily set, can be changed by the user whe
 
 void initializeTerrain() {
     PerlinNoise generator(24); // Creates a perlin noise object with a seed of 24
-    int heightMap[1024][1024];
     for (int x = 0; x < 1024; x++){
         for (int y = 0; y < 1024; y++) {
-            heightMap[x][y] = generator.noise(x, y, generator.zValuesInsertion.at(x)) * MAP_SCALE; // multiplies by the preset amplitude
+            generator.heightMap[x][y] = generator.noise(x, y, generator.zValuesInsertion.at(x)) * MAP_SCALE; // multiplies by the preset amplitude
 
     }
 }
@@ -27,17 +26,35 @@ void render() {
     glLoadIdentity(); // Replaces the current matrix, which represents how we view a screen, with the 4X4 identity matrix
     glBindTexture(GL_TEXTURE_2D, land);
 
-    for (int x = 0; x < 1024; x++) {
+    for (int x = 0; x < 1024-1; x++) {
         // By initializing as GL_TRIANGLE_STRIP, each vertex after the first two will be dealt with as a triangle
         // This needs to be done for every row in the heightmap
         glBegin(GL_TRIANGLE_STRIP);
 
-        for (y = 0; y < 1024; y++) {
+        for (y = 0; y < 1024-1; y++) {
+
+            // Finding all the neighboring points for each point in the array, and creating triangles out of all of them
 
             // Draw vertex 1
             glColor3f(y, y, y);
             gltexCoord2f(0.0f, 0.0f);
-            glVertex3f(x, y, z);
+            glVertex3f(x, y, generator.heightMap[x][y]);
+
+            // Draw vertex 2
+            glColor3f(terrain[x+1, x+1, x+1);
+            glTexCoord2f(1.0f, 0.0f);
+            glVertex3f(x+1, y, generator.heightMap[x+1][y]);
+
+
+            // Draw vertex 3
+            glColor3f(y+1, y+1, y+1);
+            gltexCoord2f(0.0f, 1.0f);
+            glVertex3f(x, y+1, generator.heightMap[x][y+1]);
+
+            // Draw vertex 4
+            glColor3f(y+1, y+1, y+1);
+            gltexCoord2f(0.0f, 0.0f);
+            glVertex3f(x+1, y+1, generator.heightMap[x+1][y+1]);
 
         }
     }
