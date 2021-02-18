@@ -4,6 +4,23 @@
 #include <numeric>
 #include <random>
 #include <algorithm>
+#include <PerlinNoise.h>
+
+constexpr int MAP_SCALE = 4; // arbitrarily set, can be changed by the user whenever
+
+// Initialize the heightmap using the insertion values as values for z, which are passed into the noise function
+
+void initializeTerrain() {
+    PerlinNoise generator(24); // Creates a perlin noise object with a seed of 24
+    int heightMap[1024][1024];
+    for (int x = 0; x < 1024; x++){
+        for (int y = 0; y < 1024; y++) {
+            heightMap[x][y] = generator.noise(x, y, generator.zValuesInsertion.at(x));
+        }
+    }
+}
+
+
 
 void displayMe(void)
 {

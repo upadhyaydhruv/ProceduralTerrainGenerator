@@ -25,6 +25,9 @@ PerlinNoise::PerlinNoise(unsigned int seed) {
 
     // Duplicates the generated array using an iterator from start to end, creating an array of size 512
     data.insert(hashVector.end(), hashVector.begin(), hashVector.end());
+
+    zValuesInsertion = hashVector;
+    zValuesInsertion.insert(zValuesInsertion.begin(), zValuesInsertion.end(), engine);
 }
 
 double PerlinNoise::fade(double t) {
@@ -65,6 +68,7 @@ double noise(double x, double y, double z) {
     vec8 = hashVector.at(hashVector.at(hashVector.at(xOverflow + 1) + yOverflow + 1) + zOverflow + 1);
 
     double x1, x2, y1, y2;
+
 
     // The code below finds a "weighed average" of all the linear extrapolation functions to create a coherent noise algorithm
 
