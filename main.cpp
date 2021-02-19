@@ -14,8 +14,9 @@ void initializeTerrain() {
     PerlinNoise generator(24); // Creates a perlin noise object with a seed of 24
     for (int x = 0; x < 1024; x++){
         for (int y = 0; y < 1024; y++) {
-            generator.heightMap[x][y] = generator.noise(x, y, generator.zValuesInsertion.at(x)) * MAP_SCALE; // multiplies by the preset amplitude
-
+            generator.heightMap[x][y] = generator.noise(x, y, generator.zValuesInsertion.at(x)) *
+                                        MAP_SCALE; // multiplies by the preset amplitude
+        }
     }
 }
 
@@ -37,7 +38,7 @@ void render() {
 
             // Draw vertex 1
             glColor3f(y, y, y);
-            gltexCoord2f(0.0f, 0.0f);
+            glTexCoord2f(0.0f, 0.0f);
             glVertex3f(x, y, generator.heightMap[x][y]);
 
             // Draw vertex 2
@@ -48,7 +49,7 @@ void render() {
 
             // Draw vertex 3
             glColor3f(y+1, y+1, y+1);
-            gltexCoord2f(0.0f, 1.0f);
+            glTexCoord2f(0.0f, 1.0f);
             glVertex3f(x, y+1, generator.heightMap[x][y+1]);
 
             // Draw vertex 4
@@ -73,9 +74,9 @@ void render() {
     glFlush();
 
     SwapBuffers(g_HDC);
-
-    }
+    glEnd();
 }
+
 
 
 
