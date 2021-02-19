@@ -232,6 +232,12 @@ ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
 
+//Value Computed by CMake
+Project_BINARY_DIR:STATIC=/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/cmake-build-debug
+
+//Value Computed by CMake
+Project_SOURCE_DIR:STATIC=/home/goodmanmcgee/Projects/OpenGL/ProceduralMap
+
 
 ########################
 # INTERNAL cache entries
