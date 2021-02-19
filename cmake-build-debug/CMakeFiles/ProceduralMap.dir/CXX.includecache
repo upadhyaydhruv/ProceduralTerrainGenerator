@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.cpp
-numeric
--
-random
--
-algorithm
--
-iostream
--
-PerlinNoise.h
-/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.h
-
 /home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.h
 vector
 -
@@ -35,4 +23,6 @@ random
 -
 algorithm
 -
+PerlinNoise.h
+/home/goodmanmcgee/Projects/OpenGL/ProceduralMap/PerlinNoise.h
 

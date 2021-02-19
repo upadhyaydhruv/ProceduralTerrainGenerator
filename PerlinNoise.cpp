@@ -24,17 +24,18 @@ PerlinNoise::PerlinNoise(unsigned int seed) {
     std::shuffle (hashVector.begin(), hashVector.end(), engine);
 
     // Duplicates the generated array using an iterator from start to end, creating an array of size 512
-    data.insert(hashVector.end(), hashVector.begin(), hashVector.end());
+    hashVector.insert(hashVector.end(), hashVector.begin(), hashVector.end());
 
-    zValuesInsertion = hashVector;
-    zValuesInsertion.insert(zValuesInsertion.begin(), zValuesInsertion.end(), engine);
+    zValuesInsertion.insert(hashVector.begin(), hashVector.end(), hashVector.begin());
+    zValuesInsertion.insert(zValuesInsertion.begin(), zValuesInsertion.end(), zValuesInsertion.begin());
 }
 
 double PerlinNoise::fade(double t) {
     return 6*pow(t, 5) - 15*pow(t, 4) + 10*pow(t, 3); // 6t^5-15t^4+10t^3 is the perlin fade function to
 }
 
-double noise(double x, double y, double z) {
+
+double PerlinNoise::noise(double x, double y, double z) {
     // This function find the local relevant position of the coordinate in a "unit cube"
 
     // By modulating by 255, it makes sure that the coordinates are within the preset range of 0 to 255 and prevents overflow errors
@@ -72,20 +73,20 @@ double noise(double x, double y, double z) {
 
     // The code below finds a "weighed average" of all the linear extrapolation functions to create a coherent noise algorithm
 
-    x1 = lerp(grad(vec1, xFinal, yFinal, zFinal), grad(vec5, xFinal - 1, yFinal - 1, zFinal), fadedX);
-    x2 = lerp(grad(vec2, xFinal, yFinal - 1, zFinal), grad(vec6, xFinal - 1, yFinal - 1, zFinal), fadedX);
-    y1 = lerp (x1, x2, fadedY);
-    x1 = lerp (grad(vec3, xFinal, yFinal, zFinal - 1), grad(vec7, xFinal - 1, yFinal - 1, zFinal - 1), fadedX);
-    x2 = lerp (grad(vec4, xFinal, yFinal, zFinal - 1), grad(vec8, xFinal - 1, yFinal - 1, zFinal - 1), fadedX);
+    x1 = linExtrapolate(grad(vec1, xFinal, yFinal, zFinal), grad(vec5, xFinal - 1, yFinal - 1, zFinal), fadedX);
+    x2 = linExtrapolate(grad(vec2, xFinal, yFinal - 1, zFinal), grad(vec6, xFinal - 1, yFinal - 1, zFinal), fadedX);
+    y1 = linExtrapolate(x1, x2, fadedY);
+    x1 = linExtrapolate(grad(vec3, xFinal, yFinal, zFinal - 1), grad(vec7, xFinal - 1, yFinal - 1, zFinal - 1), fadedX);
+    x2 = linExtrapolate(grad(vec4, xFinal, yFinal, zFinal - 1), grad(vec8, xFinal - 1, yFinal - 1, zFinal - 1), fadedX);
 
-    y2 = lerp (x1, x2, fadedY);
+    y2 = linExtrapolate(x1, x2, fadedY);
 
-    return (lerp (y1, y2, fadedZ) + 1)/2;
+    return (linExtrapolate(y1, y2, fadedZ) + 1)/2;
 
 
 }
 
-double grad(int hash, double x, double y, double z) {
+double PerlinNoise::grad(int hash, double x, double y, double z) {
     // This function uses bit manipulation to pick a random vector from the following using the last four bits of the hash function
     /*
      (1,1,0),(-1,1,0),(1,-1,0),(-1,-1,0)
@@ -94,7 +95,8 @@ double grad(int hash, double x, double y, double z) {
      */
 
     int h = hash & 15; // Takes last 4 bits of the hashed value
-    double u = h < 8 ? x : y; // If the first digit (MSB) is 0, let u equal x, otherwise let u equal y
+    double u = 0, v = 0;
+    u = h < 8 ? x : y; // If the first digit (MSB) is 0, let u equal x, otherwise let u equal y
     if (h < 4)
         v = y;
     else if (h == 12 || h == 14)
@@ -102,9 +104,9 @@ double grad(int hash, double x, double y, double z) {
     else
         v = z;
 
-    return (h&1 == 0 ? u : -u + h&2 == 0 ? v : -v); // Uses the last two digits to determine if u and v are positive or negative, and returns the sum of those
+    return (h&1 == 0 ? u : -u + (h&2) == 0 ? v : -v); // Uses the last two digits to determine if u and v are positive or negative, and returns the sum of those
 }
 
-double linExtrapolate(double a, double b, double x) {
+double PerlinNoise::linExtrapolate(double a, double b, double x) {
     return a + x * (b - a); // creates a function to extrapolate between two points
 }

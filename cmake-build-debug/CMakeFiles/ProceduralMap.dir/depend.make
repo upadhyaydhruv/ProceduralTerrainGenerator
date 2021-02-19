@@ -4,5 +4,6 @@
 CMakeFiles/ProceduralMap.dir/PerlinNoise.cpp.o: ../PerlinNoise.cpp
 CMakeFiles/ProceduralMap.dir/PerlinNoise.cpp.o: ../PerlinNoise.h
 
+CMakeFiles/ProceduralMap.dir/main.cpp.o: ../PerlinNoise.h
 CMakeFiles/ProceduralMap.dir/main.cpp.o: ../main.cpp
 
